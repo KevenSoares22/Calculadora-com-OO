@@ -3,6 +3,8 @@ class CalculatorController{
         this._hourEl = document.querySelector('#hour')
         this._dateEl = document.querySelector('#date')
         this._screenEl = document.querySelector('#result')
+
+        this._calcElements = []
         this.displayHour
         this.displayDate
         this.currentTime
@@ -37,7 +39,7 @@ class CalculatorController{
 
 
     addEventListenerAll(element, events, functn){
-        events.split(', ','').forEach(sinEvent => {
+        events.split(', ').forEach(sinEvent => {
             element.addEventListener(sinEvent, functn)
 
 
@@ -47,7 +49,54 @@ class CalculatorController{
 
 
     }    
-    
+
+    getLastElement(){
+        return this._calcElements[this._calcElements.length - 1]
+
+
+
+    }
+
+    setLastElement(value){
+        this._calcElements[this._calcElements.length - 1] = value
+        console.log(this._calcElements)
+
+
+    }
+    addElement(element){
+        if (isNaN(element)) {
+            if (isNaN(this.getLastElement())) {
+                this.setLastElement(element)
+            } else {
+                this._calcElements.push(element)
+                console.log(this._calcElements)
+
+
+
+            }
+
+
+
+
+        } else {
+            if (isNaN(this.getLastElement())) {
+                this._calcElements.push(parseInt(element))
+                console.log(this._calcElements)
+
+            } else {
+
+
+                this.setLastElement(parseInt(this.getLastElement().toString() + element.toString()))
+                
+                
+                
+                
+            
+            }
+        }
+
+
+    }
     startButton(button){
 
         switch (button) {
@@ -63,22 +112,17 @@ class CalculatorController{
             case '7':
             case '8':
             case '9':
-            
+                this.addElement(button)
             break;
 
-            
             case 'soma':
+                this.addElement('+')
+
+            break;                                              
             case 'subtracao':
-            case 'divisao':
-            case 'multiplicacao':
-            case 'porcento':
-            case 'igual':
-            case 'ponto':
-            case 'ac':
-            case 'ce':
-            break;                                                           
+                this.addElement('-')
 
-
+            break;
         
             default:
                 break;
@@ -91,7 +135,11 @@ class CalculatorController{
         let btns = document.querySelectorAll('.line > button')
         btns.forEach(btn =>{
             let btnData = btn.className.replace("button-", "")
-            this.addEventListenerAll(btn, "click, drag", ()=>{
+
+                 
+
+
+            this.addEventListenerAll(btn, "click, drag", e=>{
                 this.startButton(btnData)
 
 
