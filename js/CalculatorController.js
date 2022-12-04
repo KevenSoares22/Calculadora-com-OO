@@ -5,11 +5,17 @@ class CalculatorController{
         this._screenEl = document.querySelector('#result')
 
         this._calcElements = []
+        this.displayCalc
         this.displayHour
         this.displayDate
         this.currentTime
+
+
+
+
         this.initialize()
         this.getButtons()
+
     }
 
 
@@ -44,6 +50,10 @@ class CalculatorController{
 
 
 
+
+
+
+
         })
 
 
@@ -59,17 +69,19 @@ class CalculatorController{
 
     setLastElement(value){
         this._calcElements[this._calcElements.length - 1] = value
-        console.log(this._calcElements)
+        this.displayCalc = this._calcElements.join("")
 
 
     }
+
+
     addElement(element){
         if (isNaN(element)) {
             if (isNaN(this.getLastElement())) {
                 this.setLastElement(element)
             } else {
                 this._calcElements.push(element)
-                console.log(this._calcElements)
+                this.displayCalc = this._calcElements.join("")
 
 
 
@@ -80,13 +92,13 @@ class CalculatorController{
 
         } else {
             if (isNaN(this.getLastElement())) {
-                this._calcElements.push(parseInt(element))
-                console.log(this._calcElements)
+                this._calcElements.push(Number(element))
+                this.displayCalc = this._calcElements.join("")
 
             } else {
 
 
-                this.setLastElement(parseInt(this.getLastElement().toString() + element.toString()))
+                this.setLastElement(Number(this.getLastElement().toString() + element.toString()))
                 
                 
                 
@@ -96,6 +108,36 @@ class CalculatorController{
         }
 
 
+    }
+
+
+    addP(){
+        if (isNaN(this.getLastElement())) {
+            
+        } else {
+            this.setLastElement(this.getLastElement() + '.')
+        }
+
+
+
+    }
+
+    clearAll(){
+        this._calcElements = []
+        this.displayCalc = this._calcElements
+    }
+
+    clearEmpty(){
+        this._calcElements.pop()
+        this.displayCalc = this._calcElements
+
+    }
+
+
+    calculate(){
+        let result = eval(this._calcElements.join(""))
+        this._calcElements = [result]
+        this.displayCalc = this._calcElements
     }
     startButton(button){
 
@@ -136,12 +178,20 @@ class CalculatorController{
             break;
 
             case 'ac':
+                this.clearAll()
+
             break;
             case 'ce':
+                this.clearEmpty()
+
             break;
             case 'igual':
+                this.calculate()
+
             break;
             case 'ponto':
+                this.addP()
+
             break;
             default:
                 break;
@@ -205,11 +255,11 @@ class CalculatorController{
     }
     
     get displayCalc(){
-        return this._screenEl.innerHTML
+        return this._screenEl.value
 
     }
     set displayCalc(value){
-        this._screenEl.innerHTML = value
+        this._screenEl.value = value
 
     }
 
