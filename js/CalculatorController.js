@@ -123,7 +123,26 @@ class CalculatorController{
                 this.addElement('-')
 
             break;
-        
+
+            case 'multiplicacao':
+                this.addElement('*')
+            break;
+            case 'divisao':
+                this.addElement('/')
+            break;
+
+            case 'porcento':
+                this.addElement('%')
+            break;
+
+            case 'ac':
+            break;
+            case 'ce':
+            break;
+            case 'igual':
+            break;
+            case 'ponto':
+            break;
             default:
                 break;
         }
