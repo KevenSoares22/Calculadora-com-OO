@@ -27,7 +27,6 @@
     background-color: rgb(50, 50, 50);
     color: white;
     font-size: 18px;
-
 }
 .line > .button-0{
     width: 116px;
@@ -36,10 +35,7 @@
     padding-left: 20px;
 }
 .line > .button-ac, .line > .button-ce, .line > .button-porcento{
-    
-    
     color: black;
-
     background-color:rgb(160, 160, 160)
 }
 
